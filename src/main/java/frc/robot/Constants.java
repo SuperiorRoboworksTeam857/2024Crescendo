@@ -145,4 +145,11 @@ public final class Constants {
     public static final int leftArmID = 20;
     public static final int rightArmID = 21;
   }
+
+
+  public static final class IntakeConstants {
+    public static final int intakeMotorID = 30;
+  }
+
+  
 }

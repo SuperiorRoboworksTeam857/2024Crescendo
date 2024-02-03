@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -35,9 +36,15 @@ public class RobotContainer {
   private final JoystickButton slowSpeed = new JoystickButton(driverStick, 1);
   private final JoystickButton highSpeed = new JoystickButton(driverStick, 2);
 
+  /* gamepad Buttons */
+  private final JoystickButton intakeButton = new JoystickButton(gamepad, 4);
+
+
   /* Subsystems */
   public final Swerve s_Swerve = new Swerve();
+  public final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public final LimelightSubsystem s_limelight = new LimelightSubsystem();
+  public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   public RobotContainer() {
     //CameraServer.startAutomaticCapture();
@@ -54,6 +61,17 @@ public class RobotContainer {
             () -> robotCentric.getAsBoolean(),
             () -> slowSpeed.getAsBoolean() /*|| s_elevator.isElevatorHigh()*/,
             () -> highSpeed.getAsBoolean()));
+
+    climberSubsystem.setDefaultCommand(
+      new RunCommand(
+        () -> climberSubsystem.runArms(-gamepad.getRawAxis(XboxController.Axis.kRightY.value), gamepad.getRawAxis(XboxController.Axis.kLeftY.value) ),
+            climberSubsystem));
+      
+    intakeSubsystem.setDefaultCommand(
+      new RunCommand(
+        () -> intakeSubsystem.runIntake(0),
+            intakeSubsystem));
+    
             
     configureBindings();
   }
@@ -67,6 +85,9 @@ public class RobotContainer {
     new POVButton(driverStick, 270).whileTrue(new TurnToAngleCommand(s_Swerve, -90, 2));
 
     new JoystickButton(driverStick, 4).whileTrue(new RunCommand(() -> s_Swerve.setX(), s_Swerve));
+
+    intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.runIntake(1), intakeSubsystem));
+
   }
 
   public Command getAutonomousCommand() {
