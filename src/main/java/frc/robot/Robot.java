@@ -7,14 +7,19 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.lib.config.CTREConfigs;
 
 public class Robot extends TimedRobot {
+  public static CTREConfigs ctreConfigs;
+
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
   @Override
   public void robotInit() {
+    ctreConfigs = new CTREConfigs();
+
     m_robotContainer = new RobotContainer();
   }
 
@@ -34,6 +39,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    m_robotContainer.s_limelight.turnOnDriverCam();
+    m_robotContainer.s_limelight.enableLimelight(false);
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
@@ -49,6 +57,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_robotContainer.s_limelight.turnOnDriverCam();
+    m_robotContainer.s_limelight.enableLimelight(false);
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
