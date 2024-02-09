@@ -86,7 +86,7 @@ public class RobotContainer {
 
     new JoystickButton(driverStick, 4).whileTrue(new RunCommand(() -> s_Swerve.setX(), s_Swerve));
 
-    intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.runIntake(1), intakeSubsystem));
+    intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.runIntake(0.5), intakeSubsystem));
 
   }
 

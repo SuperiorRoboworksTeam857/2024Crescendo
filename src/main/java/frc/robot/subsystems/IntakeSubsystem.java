@@ -16,7 +16,8 @@ import frc.robot.Constants.IntakeConstants;
 
 
 public class IntakeSubsystem extends SubsystemBase {
-  CANSparkFlex motor = new CANSparkFlex(IntakeConstants.intakeMotorID, MotorType.kBrushless);
+  CANSparkFlex motorBack = new CANSparkFlex(IntakeConstants.intakeMotorBackID, MotorType.kBrushless);
+  CANSparkFlex motorFront = new CANSparkFlex(IntakeConstants.intakeMotorFrontID, MotorType.kBrushless);
   
 
   public IntakeSubsystem() {}
@@ -26,7 +27,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void runIntake(double speed)
   {
-    motor.set(speed);
+    motorBack.set(-speed);
+    motorFront.set(-speed);
   }
 
 }
