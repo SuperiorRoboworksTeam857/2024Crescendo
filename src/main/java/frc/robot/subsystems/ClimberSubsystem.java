@@ -39,7 +39,7 @@ public class ClimberSubsystem extends SubsystemBase {
     boolean movingDown = (speed < 0);
 
     if ((rightMotor.getEncoder().getPosition() > 0 && movingDown) ||
-       (rightMotor.getEncoder().getPosition() < 185 && movingUp)) {
+       (rightMotor.getEncoder().getPosition() < 570 && movingUp)) {
       rightMotor.set(speed);
     }
     else if (movingDown) {
@@ -60,7 +60,7 @@ public class ClimberSubsystem extends SubsystemBase {
     boolean movingDown = (speed > 0);
 
     if ((leftMotor.getEncoder().getPosition() < 0 && movingDown) ||
-        (leftMotor.getEncoder().getPosition() > -185 && movingUp)) {
+        (leftMotor.getEncoder().getPosition() > -600 && movingUp)) {
       leftMotor.set(speed);
     }
     else if (movingDown) {
