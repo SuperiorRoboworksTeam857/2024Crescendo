@@ -45,7 +45,8 @@ public class RobotContainer {
   public final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public final LimelightSubsystem s_limelight = new LimelightSubsystem();
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-
+  public final PivotSubsystem pivotSubsystem = new PivotSubsystem();
+  
   public RobotContainer() {
     //CameraServer.startAutomaticCapture();
 
@@ -88,6 +89,15 @@ public class RobotContainer {
 
     intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.runIntake(0.5), intakeSubsystem));
 
+
+    // Pivot controls
+    new JoystickButton(gamepad, XboxController.Button.kLeftBumper.value)
+    .whileTrue(
+        new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.VERTICAL), pivotSubsystem));
+
+    new JoystickButton(gamepad, XboxController.Button.kRightBumper.value)
+    .whileTrue(
+    new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem));
   }
 
   public Command getAutonomousCommand() {
