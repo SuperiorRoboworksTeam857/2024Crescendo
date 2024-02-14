@@ -150,6 +150,13 @@ public final class Constants {
   public static final class IntakeConstants {
     public static final int intakeMotorBackID = 30;
     public static final int intakeMotorFrontID = 31;
+    
+  }
+
+  public static final class PivotConstants{
+    public static final int pivotMotorLeftID = 40;
+    public static final int pivotMotorRightID = 41;
+
   }
 
   

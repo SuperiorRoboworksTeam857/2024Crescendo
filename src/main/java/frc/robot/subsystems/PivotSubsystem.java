@@ -17,8 +17,8 @@ public class PivotSubsystem extends SubsystemBase {
 
   private final AbsoluteEncoder m_absoluteEncoder;
 
-  private static final double horizontalAngle = 0.68 - 0.13;
-  private static final double verticalAngle = 0.950 - 0.13;
+  private static final double horizontalAngle = 0.662;
+  private static final double verticalAngle = 0.416;
 
   public enum Positions {
     HORIZONTAL,

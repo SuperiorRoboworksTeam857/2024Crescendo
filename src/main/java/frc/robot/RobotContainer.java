@@ -46,6 +46,7 @@ public class RobotContainer {
   public final LimelightSubsystem s_limelight = new LimelightSubsystem();
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public final PivotSubsystem pivotSubsystem = new PivotSubsystem();
+  public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   
   public RobotContainer() {
     //CameraServer.startAutomaticCapture();
@@ -72,6 +73,11 @@ public class RobotContainer {
       new RunCommand(
         () -> intakeSubsystem.runIntake(0),
             intakeSubsystem));
+
+    shooterSubsystem.setDefaultCommand(
+      new RunCommand(
+        () -> shooterSubsystem.stopAllMotors(),
+            shooterSubsystem));
     
             
     configureBindings();
@@ -98,6 +104,13 @@ public class RobotContainer {
     new JoystickButton(gamepad, XboxController.Button.kRightBumper.value)
     .whileTrue(
     new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem));
+
+
+    new JoystickButton(gamepad, XboxController.Button.kA.value)
+      .whileTrue(
+        new RunCommand(() -> shooterSubsystem.shoot(1), shooterSubsystem));
+    
+
   }
 
   public Command getAutonomousCommand() {
