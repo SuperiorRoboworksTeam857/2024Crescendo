@@ -159,5 +159,12 @@ public final class Constants {
 
   }
 
+  public static final class ShooterConstants{
+    public static final int shooterMotorLeftID = 50;
+    public static final int shooterMotorRightID = 51;
+    public static final int shooterMotorFeederID = 52;
+
+  }
+
   
 }
