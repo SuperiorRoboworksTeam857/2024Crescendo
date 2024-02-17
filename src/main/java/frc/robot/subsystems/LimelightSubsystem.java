@@ -79,16 +79,14 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public enum Pipeline {
-    RetroTape,
+    //RetroTape,
     AprilTags
   }
 
   public void setPipeline(Pipeline pipeline) {
     double value = 0.0;
-    if (pipeline == Pipeline.RetroTape) {
+    if (pipeline == Pipeline.AprilTags) {
       value = 0;
-    } else if (pipeline == Pipeline.AprilTags) {
-      value = 1;
     }
     setLimelightValue("pipeline", value);
 

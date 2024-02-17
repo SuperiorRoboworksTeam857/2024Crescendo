@@ -17,7 +17,7 @@ public class PivotSubsystem extends SubsystemBase {
 
   private final AbsoluteEncoder m_absoluteEncoder;
 
-  private static final double horizontalAngle = 0.662;
+  private static final double horizontalAngle = 0.666;
   private static final double verticalAngle = 0.416;
 
   public enum Positions {
@@ -74,6 +74,17 @@ public class PivotSubsystem extends SubsystemBase {
   public boolean isPivotAtGoal() {
     return Math.abs(m_absoluteEncoder.getPosition() - m_goalAngle) < 0.03;
   }
+
+  public boolean isPivotHorizontal() {
+    return Math.abs(m_absoluteEncoder.getPosition() - horizontalAngle) < 0.03;
+  }
+
+  public boolean isPivotVertical() {
+    return Math.abs(m_absoluteEncoder.getPosition() - verticalAngle) < 0.03;
+  }
+  
+
+
 
   public void resetEncoders() {
     leftMotor.getEncoder().setPosition(0);

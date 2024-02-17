@@ -105,11 +105,16 @@ public class RobotContainer {
     .whileTrue(
     new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem));
 
-
+    // Shooter controls
     new JoystickButton(gamepad, XboxController.Button.kA.value)
       .whileTrue(
-        new RunCommand(() -> shooterSubsystem.shoot(1), shooterSubsystem));
-    
+        new RunCommand(() -> shooterSubsystem.shoot(1,pivotSubsystem), shooterSubsystem));
+
+    // Limelight controls
+    new JoystickButton(gamepad, XboxController.Button.kB.value)
+        .whileTrue(
+            new InstantCommand(
+                () -> s_limelight.setPipeline(LimelightSubsystem.Pipeline.AprilTags)));
 
   }
 

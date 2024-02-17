@@ -26,9 +26,9 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {}
 
-  public void shoot(double speed) {
+  public void shoot(double speed, PivotSubsystem pivotSubsystem) {
     runShooter(speed);
-    if (isShooterAtSpeed()) {
+    if (isShooterAtSpeed() || pivotSubsystem.isPivotVertical()) {
       runFeeder(1);
     } 
   }
@@ -46,12 +46,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void runShooter(double speed)
   {
-    motorLeft.set(-speed);
+    motorLeft.set(speed);
     motorRight.set(-speed);
+
+    SmartDashboard.putNumber("shooter speed", motorLeft.getEncoder().getVelocity());
   }
 
   public boolean isShooterAtSpeed() {
-    return motorLeft.getEncoder().getVelocity() > 4000;
+    return motorLeft.getEncoder().getVelocity() > 4500;
   }
 
 }
