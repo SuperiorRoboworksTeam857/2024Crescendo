@@ -78,9 +78,11 @@ public class RobotContainer {
       )
     );
     NamedCommands.registerCommand("runIntake",
-      new RunCommand(() -> intakeSubsystem.runIntake(0.5), intakeSubsystem)
+      new RunCommand(() -> intakeSubsystem.intake(), intakeSubsystem)
     );
-
+    NamedCommands.registerCommand("stopIntake",
+      new RunCommand(() -> intakeSubsystem.stopIntake(), intakeSubsystem)
+    );
 
     CameraServer.startAutomaticCapture();
 
@@ -104,7 +106,7 @@ public class RobotContainer {
       
     intakeSubsystem.setDefaultCommand(
       new RunCommand(
-        () -> intakeSubsystem.runIntake(0),
+        () -> intakeSubsystem.stopIntake(),
             intakeSubsystem));
 
     shooterSubsystem.setDefaultCommand(
@@ -127,8 +129,8 @@ public class RobotContainer {
     new JoystickButton(driverStick, 4).whileTrue(new RunCommand(() -> s_Swerve.setX(), s_Swerve));
 
     // Intake controls
-    intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.runIntake(0.5), intakeSubsystem));
-    outTakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.runIntake(-0.5), intakeSubsystem));
+    intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.intake(), intakeSubsystem));
+    outTakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.outtake(), intakeSubsystem));
 
     // Pivot controls
     pivotUpButton.whileTrue(

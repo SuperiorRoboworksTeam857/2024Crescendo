@@ -25,10 +25,26 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {}
 
-  public void runIntake(double speed)
+  private void runIntake(double speed)
   {
     motorBack.set(-speed);
     motorFront.set(-speed);
   }
+
+  public void intake()
+  {
+    runIntake(0.5);
+  }
+
+  public void outtake()
+  {
+    runIntake(-0.5);
+  }
+
+  public void stopIntake()
+  {
+    runIntake(0);
+  }
+
 
 }
