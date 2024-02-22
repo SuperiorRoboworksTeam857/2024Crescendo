@@ -52,13 +52,13 @@ public class Swerve extends SubsystemBase {
     AutoBuilder.configureHolonomic(
             this::getPose, // Robot pose supplier
             this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
-            this::getCurrrentSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+            this::getCurrentSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
             this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
             new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                    new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
+                    new PIDConstants(4.0, 0.0, 0.0), // Translation PID constants
+                    new PIDConstants(1.5, 0.0, 0.0), // Rotation PID constants
                     4.5, // Max module speed, in m/s
-                    0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                    0.35, // Drive base radius in meters. Distance from robot center to furthest module.
                     new ReplanningConfig() // Default path replanning config. See the API for the options here
             ),
             () -> {
@@ -104,7 +104,7 @@ public class Swerve extends SubsystemBase {
   public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds){
     var states = Constants.Swerve.swerveKinematics.toSwerveModuleStates(robotRelativeSpeeds);
 
-    SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.Swerve.maxSpeed);
+    //SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.Swerve.maxSpeed);
 
     setModuleStates(states);
   }
@@ -123,7 +123,7 @@ public class Swerve extends SubsystemBase {
     SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);
 
     for (SwerveModule mod : mSwerveMods) {
-      mod.setDesiredState(desiredStates[mod.moduleNumber], false); // false
+      mod.setDesiredState(desiredStates[mod.moduleNumber], true); // false
     }
   }
 

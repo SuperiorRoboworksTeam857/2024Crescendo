@@ -4,19 +4,31 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 //import frc.robot.Constants.Swerve;
-
 //import frc.robot.autos.*;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
+import frc.robot.commands.TeleopSwerve;
+import frc.robot.commands.TurnToAngleCommand;
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.Swerve;
 
 public class RobotContainer {
   /* Controllers */
@@ -37,9 +49,13 @@ public class RobotContainer {
   private final JoystickButton highSpeed = new JoystickButton(driverStick, 2);
 
   /* gamepad Buttons */
-  private final JoystickButton intakeButton = new JoystickButton(gamepad, 4);
-
-
+  private final JoystickButton intakeButton = new JoystickButton(gamepad, XboxController.Button.kY.value);
+  private final JoystickButton outTakeButton = new JoystickButton(gamepad,XboxController.Button.kX.value);
+  private final JoystickButton pivotDownButton = new JoystickButton(gamepad,XboxController.Button.kB.value);
+  private final JoystickButton pivotUpButton = new JoystickButton(gamepad,XboxController.Button.kA.value);
+  private final JoystickButton chargeShooterButton = new JoystickButton(gamepad,XboxController.Button.kLeftBumper.value);
+  private final JoystickButton shooterButton = new JoystickButton(gamepad,XboxController.Button.kRightBumper.value);
+  
   /* Subsystems */
   public final Swerve s_Swerve = new Swerve();
   public final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
@@ -49,7 +65,24 @@ public class RobotContainer {
   public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   
   public RobotContainer() {
-    //CameraServer.startAutomaticCapture();
+    /* Named commands */
+    NamedCommands.registerCommand("shootNote",
+      new SequentialCommandGroup(
+        new RunCommand(() -> shooterSubsystem.shoot(1, pivotSubsystem), shooterSubsystem)
+          .until(shooterSubsystem::isShooterAtSpeed),
+        new ParallelRaceGroup(
+            new RunCommand(() -> shooterSubsystem.shoot(1, pivotSubsystem), shooterSubsystem),
+            new WaitCommand(1)
+        ),
+        new InstantCommand(() -> shooterSubsystem.stopAllMotors(), shooterSubsystem)
+      )
+    );
+    NamedCommands.registerCommand("runIntake",
+      new RunCommand(() -> intakeSubsystem.runIntake(0.5), intakeSubsystem)
+    );
+
+
+    CameraServer.startAutomaticCapture();
 
     s_limelight.turnOnDriverCam();
     s_limelight.enableLimelight(false);
@@ -93,25 +126,26 @@ public class RobotContainer {
 
     new JoystickButton(driverStick, 4).whileTrue(new RunCommand(() -> s_Swerve.setX(), s_Swerve));
 
+    // Intake controls
     intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.runIntake(0.5), intakeSubsystem));
-
+    outTakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.runIntake(-0.5), intakeSubsystem));
 
     // Pivot controls
-    new JoystickButton(gamepad, XboxController.Button.kLeftBumper.value)
-    .whileTrue(
+    pivotUpButton.whileTrue(
         new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.VERTICAL), pivotSubsystem));
 
-    new JoystickButton(gamepad, XboxController.Button.kRightBumper.value)
-    .whileTrue(
+    pivotDownButton.whileTrue(
     new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem));
 
     // Shooter controls
-    new JoystickButton(gamepad, XboxController.Button.kA.value)
-      .whileTrue(
+    shooterButton.whileTrue(
         new RunCommand(() -> shooterSubsystem.shoot(1,pivotSubsystem), shooterSubsystem));
+    
+    chargeShooterButton.whileTrue(
+        new RunCommand(() -> shooterSubsystem.chargeShooter(1,pivotSubsystem), shooterSubsystem));
 
     // Limelight controls
-    new JoystickButton(gamepad, XboxController.Button.kB.value)
+    new JoystickButton(gamepad, XboxController.Button.kStart.value)
         .whileTrue(
             new InstantCommand(
                 () -> s_limelight.setPipeline(LimelightSubsystem.Pipeline.AprilTags)));
@@ -119,6 +153,12 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
+    if (buttonBox.getRawButton(3)) {
+      return new PathPlannerAuto("2 note center");
+    }
+
+    return Commands.print("No autonomous command configured");
+
     // if (buttonBox.getRawButton(3)) {
     //   return new AutoPreloadConeChargeStation(this);
     // } else if (buttonBox.getRawButton(4)) {
@@ -133,6 +173,6 @@ public class RobotContainer {
     //   return new AutoPreloadConeChargeStationPlusCube(this);
     // }
 
-    return Commands.print("No autonomous command configured");
+    //return Commands.print("No autonomous command configured");
   }
 }

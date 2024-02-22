@@ -26,6 +26,14 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {}
 
+  public void chargeShooter(double speed, PivotSubsystem pivotSubsystem)
+  {
+    runFeeder(0);
+    if (!pivotSubsystem.isPivotVertical()) {
+      runShooter(speed);
+    } 
+  }
+
   public void shoot(double speed, PivotSubsystem pivotSubsystem) {
     runShooter(speed);
     if (isShooterAtSpeed() || pivotSubsystem.isPivotVertical()) {
@@ -53,7 +61,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isShooterAtSpeed() {
-    return motorLeft.getEncoder().getVelocity() > 4500;
+    return motorLeft.getEncoder().getVelocity() > 4800;
   }
 
 }
