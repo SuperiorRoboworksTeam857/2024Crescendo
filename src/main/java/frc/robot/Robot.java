@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_robotContainer.s_limelight.turnOnDriverCam();
+    m_robotContainer.s_limelight.turnOffDriverCam();
     m_robotContainer.s_limelight.enableLimelight(false);
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    m_robotContainer.s_limelight.turnOnDriverCam();
+    m_robotContainer.s_limelight.turnOffDriverCam();
     m_robotContainer.s_limelight.enableLimelight(false);
 
     if (m_autonomousCommand != null) {
