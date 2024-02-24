@@ -31,9 +31,11 @@ public class IntakeSubsystem extends SubsystemBase {
     motorFront.set(-speed);
   }
 
-  public void intake()
+  public void intake(PivotSubsystem pivotSubsystem)
   {
-    runIntake(0.5);
+    if (pivotSubsystem.isPivotHorizontal()) {
+      runIntake(0.5);
+    }
   }
 
   public void outtake()
