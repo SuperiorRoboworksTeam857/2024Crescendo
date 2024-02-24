@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 //import frc.robot.autos.*;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.TurnToAngleCommand;
+import frc.robot.commands.TurnToTargetCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -43,7 +44,7 @@ public class RobotContainer {
 
   /* Driver Buttons */
   private final JoystickButton zeroGyro = new JoystickButton(driverStick, 3);
-  private final JoystickButton robotCentric = new JoystickButton(driverStick, 5);
+  private final JoystickButton targetSpeakerTags = new JoystickButton(driverStick, 5);
 
   private final JoystickButton slowSpeed = new JoystickButton(driverStick, 1);
   private final JoystickButton highSpeed = new JoystickButton(driverStick, 2);
@@ -78,7 +79,7 @@ public class RobotContainer {
       )
     );
     NamedCommands.registerCommand("runIntake",
-      new RunCommand(() -> intakeSubsystem.intake(), intakeSubsystem)
+      new RunCommand(() -> intakeSubsystem.intake(pivotSubsystem), intakeSubsystem)
     );
     NamedCommands.registerCommand("stopIntake",
       new RunCommand(() -> intakeSubsystem.stopIntake(), intakeSubsystem)
@@ -95,7 +96,7 @@ public class RobotContainer {
             () -> -driverStick.getRawAxis(translationAxis),
             () -> -driverStick.getRawAxis(strafeAxis),
             () -> -driverStick.getRawAxis(rotationAxis),
-            () -> robotCentric.getAsBoolean(),
+            () -> false,
             () -> slowSpeed.getAsBoolean() /*|| s_elevator.isElevatorHigh()*/,
             () -> highSpeed.getAsBoolean()));
 
@@ -127,9 +128,10 @@ public class RobotContainer {
     new POVButton(driverStick, 270).whileTrue(new TurnToAngleCommand(s_Swerve, -90, 2));
 
     new JoystickButton(driverStick, 4).whileTrue(new RunCommand(() -> s_Swerve.setX(), s_Swerve));
+    targetSpeakerTags.whileTrue(new TurnToTargetCommand(s_Swerve, s_limelight, driverStick, 50));
 
     // Intake controls
-    intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.intake(), intakeSubsystem));
+    intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.intake(pivotSubsystem), intakeSubsystem));
     outTakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.outtake(), intakeSubsystem));
 
     // Pivot controls
@@ -157,6 +159,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     if (buttonBox.getRawButton(3)) {
       return new PathPlannerAuto("2 note center");
+    } else if (buttonBox.getRawButton(4)) {
+      return new PathPlannerAuto("angle auto");
     }
 
     return Commands.print("No autonomous command configured");
