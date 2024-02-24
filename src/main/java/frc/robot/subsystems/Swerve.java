@@ -76,23 +76,13 @@ public class Swerve extends SubsystemBase {
     );
   }
 
-  public boolean isDrivingBackward(Translation2d translation, double rotation) {
-    ChassisSpeeds speeds =
-        ChassisSpeeds.fromFieldRelativeSpeeds(
-            translation.getX(), translation.getY(), rotation, getYaw());
-
-    SmartDashboard.putNumber("vX", speeds.vxMetersPerSecond);
-    return speeds.vxMetersPerSecond > 0;
-    // speeds.vxMetersPerSecond
-  }
-
   public void drive(
       Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
     SwerveModuleState[] swerveModuleStates =
         Constants.Swerve.swerveKinematics.toSwerveModuleStates(
             fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                    translation.getX(), translation.getY(), rotation, getYaw())
+                    translation.getX(), translation.getY(), rotation, swerveOdometry.getPoseMeters().getRotation())
                 : new ChassisSpeeds(translation.getX(), translation.getY(), rotation));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
@@ -131,7 +121,7 @@ public class Swerve extends SubsystemBase {
     SmartDashboard.putNumber("pose X", swerveOdometry.getPoseMeters().getX());
     SmartDashboard.putNumber("pose Y", swerveOdometry.getPoseMeters().getY());
     SmartDashboard.putNumber("gyro angle", gyro.getAngle());
-
+    
     // SmartDashboard.putNumber("gyro filtered X", gyro.getXFilteredAccelAngle()); // loops between
     // about 14...0...360...346
     // SmartDashboard.putNumber("gyro filtered Y", gyro.getYFilteredAccelAngle()); // forward and
