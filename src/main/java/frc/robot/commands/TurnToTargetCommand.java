@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
 
-public class StrafeToTargetCommand extends Command {
+public class TurnToTargetCommand extends Command {
 
   private final Swerve s_Swerve;
   private final LimelightSubsystem m_limelight;
@@ -16,7 +16,7 @@ public class StrafeToTargetCommand extends Command {
   private double timeout;
   private Joystick m_stick;
 
-  public StrafeToTargetCommand(
+  public TurnToTargetCommand(
       Swerve subsystem, LimelightSubsystem limelight, Joystick stick, double timeoutS) {
     s_Swerve = subsystem;
     m_limelight = limelight;
@@ -35,7 +35,7 @@ public class StrafeToTargetCommand extends Command {
   public void execute() {
     boolean onTarget = false;
 
-    double kP = 0.03;
+    double kP = 0.08;
 
     // -5 to point left of goal, +5 to point right of goal
     // +2 is pretty well centered
@@ -46,7 +46,7 @@ public class StrafeToTargetCommand extends Command {
     }
     double speed = MathUtil.clamp(tx * kP, -0.5, 0.5);
     if (Math.abs(tx) > 2.0 && timer.get() < timeout) {
-      s_Swerve.drive(new Translation2d(0, speed), 0, false, true);
+      s_Swerve.drive(new Translation2d(0, 0), -speed, false, true);
     } else {
       onTarget = true;
     }
