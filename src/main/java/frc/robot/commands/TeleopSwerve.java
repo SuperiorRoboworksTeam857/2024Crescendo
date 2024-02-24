@@ -65,12 +65,6 @@ public class TeleopSwerve extends Command {
                 * MathUtil.applyDeadband(
                     rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
 
-    boolean isDrivingBackward =
-        s_Swerve.isDrivingBackward(
-            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
-            rotationVal * Constants.Swerve.maxAngularVelocity);
-    SmartDashboard.putBoolean("is driving backward", isDrivingBackward);
-
     /* Drive */
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
