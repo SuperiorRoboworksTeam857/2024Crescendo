@@ -10,8 +10,10 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ClimberConstants;
 
 
@@ -35,6 +37,8 @@ public class ClimberSubsystem extends SubsystemBase {
   {
     //positive speed and position are up
 
+    speed = MathUtil.applyDeadband(speed, Constants.Swerve.stickDeadband);
+
     boolean movingUp = (speed > 0);
     boolean movingDown = (speed < 0);
 
@@ -55,6 +59,8 @@ public class ClimberSubsystem extends SubsystemBase {
   public void runLeftArm(double speed)
   {
     //negative speed and position are up
+
+    speed = MathUtil.applyDeadband(speed, Constants.Swerve.stickDeadband);
 
     boolean movingUp = (speed < 0);
     boolean movingDown = (speed > 0);
