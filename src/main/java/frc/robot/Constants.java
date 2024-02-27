@@ -11,8 +11,8 @@ import frc.lib.config.SwerveModuleConstants;
 public final class Constants {
 
   public static final class Swerve {
-    public static final double fastDriveSpeedMultiplier = 0.6;
-    public static final double normalDriveSpeedMultiplier = 0.4;
+    public static final double fastDriveSpeedMultiplier = 1.0;
+    public static final double normalDriveSpeedMultiplier = 0.7;
     public static final double slowDriveSpeedMultiplier = 0.2;
 
     public static final double stickDeadband = 0.1;
