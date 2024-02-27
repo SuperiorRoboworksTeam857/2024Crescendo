@@ -78,6 +78,11 @@ public class Swerve extends SubsystemBase {
 
   public void drive(
       Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
+
+    if (swerveOdometry == null) {
+      return;
+    }
+
     SwerveModuleState[] swerveModuleStates =
         Constants.Swerve.swerveKinematics.toSwerveModuleStates(
             fieldRelative
@@ -118,6 +123,9 @@ public class Swerve extends SubsystemBase {
   }
 
   public Pose2d getPose() {
+    if (swerveOdometry == null) {
+      return new Pose2d(0,0, new Rotation2d(0));
+    }
     SmartDashboard.putNumber("pose X", swerveOdometry.getPoseMeters().getX());
     SmartDashboard.putNumber("pose Y", swerveOdometry.getPoseMeters().getY());
     SmartDashboard.putNumber("gyro angle", gyro.getAngle());
@@ -136,6 +144,9 @@ public class Swerve extends SubsystemBase {
   }
 
   public void resetPose(Pose2d pose) {
+    if (swerveOdometry == null) {
+      return;
+    }
     swerveOdometry.resetPosition(getYaw(), getPositions(), pose);
   }
 
@@ -161,6 +172,12 @@ public class Swerve extends SubsystemBase {
 
   public void zeroGyro() {
     gyro.reset();
+
+
+    Pose2d oldPose = getPose();
+    Pose2d pose = new Pose2d(oldPose.getX(), oldPose.getY(), new Rotation2d(0));
+    resetPose(pose);
+    
   }
 
   public Rotation2d getYaw() {
@@ -208,6 +225,10 @@ public class Swerve extends SubsystemBase {
 
   @Override
   public void periodic() {
+    if (swerveOdometry == null) {
+      return;
+    }
+
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
 
