@@ -46,8 +46,8 @@ public class RobotContainer {
   private final JoystickButton zeroGyro = new JoystickButton(driverStick, 3);
   private final JoystickButton targetSpeakerTags = new JoystickButton(driverStick, 5);
 
-  private final JoystickButton slowSpeed = new JoystickButton(driverStick, 1);
-  private final JoystickButton highSpeed = new JoystickButton(driverStick, 2);
+  private final JoystickButton slowSpeed = new JoystickButton(driverStick, 2);
+  private final JoystickButton highSpeed = new JoystickButton(driverStick,1);
 
   /* gamepad Buttons */
   private final JoystickButton intakeButton = new JoystickButton(gamepad, XboxController.Button.kY.value);
@@ -56,6 +56,9 @@ public class RobotContainer {
   private final JoystickButton pivotUpButton = new JoystickButton(gamepad,XboxController.Button.kA.value);
   private final JoystickButton chargeShooterButton = new JoystickButton(gamepad,XboxController.Button.kLeftBumper.value);
   private final JoystickButton shooterButton = new JoystickButton(gamepad,XboxController.Button.kRightBumper.value);
+
+  private final POVButton runFeeder = new POVButton(gamepad, 0);
+  private final POVButton reverseFeeder = new POVButton(gamepad, 180);
   
   /* Subsystems */
   public final Swerve s_Swerve = new Swerve();
@@ -148,6 +151,9 @@ public class RobotContainer {
     chargeShooterButton.whileTrue(
         new RunCommand(() -> shooterSubsystem.chargeShooter(1,pivotSubsystem), shooterSubsystem));
 
+    runFeeder.whileTrue(new RunCommand(() -> shooterSubsystem.runFeeder(0.75), shooterSubsystem));
+    reverseFeeder.whileTrue(new RunCommand(() -> shooterSubsystem.runFeeder(-0.2), shooterSubsystem));
+
     // Limelight controls
     new JoystickButton(gamepad, XboxController.Button.kStart.value)
         .whileTrue(
@@ -160,7 +166,7 @@ public class RobotContainer {
     if (buttonBox.getRawButton(3)) {
       return new PathPlannerAuto("2 note center");
     } else if (buttonBox.getRawButton(4)) {
-      return new PathPlannerAuto("angle auto");
+      return new PathPlannerAuto("2 note amp side");
     }
 
     return Commands.print("No autonomous command configured");
