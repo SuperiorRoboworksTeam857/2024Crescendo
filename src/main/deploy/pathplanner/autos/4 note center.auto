@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.76,
-      "y": 6.71
+      "x": 1.4,
+      "y": 5.55
     },
-    "rotation": 60.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -20,13 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "amp side 1st"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "amp side 2nd"
+            "pathName": "2 note center path"
           }
         },
         {
@@ -38,7 +32,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "amp side 3rd"
+            "pathName": "center 2nd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "center 3rd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
           }
         }
       ]

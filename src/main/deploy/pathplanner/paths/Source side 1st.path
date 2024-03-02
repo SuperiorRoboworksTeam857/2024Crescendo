@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 0.76,
-        "y": 6.71
+        "y": 4.4
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9765063509461097,
-        "y": 6.835
+        "x": 0.9765063509461096,
+        "y": 4.275
       },
       "isLocked": false,
       "linkedName": null
@@ -17,27 +17,27 @@
     {
       "anchor": {
         "x": 1.82,
-        "y": 6.98
+        "y": 4.1
       },
       "prevControl": {
         "x": 1.57,
-        "y": 6.98
+        "y": 4.1
       },
       "nextControl": {
         "x": 2.0700000000000003,
-        "y": 6.98
+        "y": 4.1
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 6.98
+        "x": 2.65,
+        "y": 4.1
       },
       "prevControl": {
-        "x": 2.7500000000000004,
-        "y": 6.98
+        "x": 2.4000000000000004,
+        "y": 4.1
       },
       "nextControl": null,
       "isLocked": false,
@@ -69,23 +69,6 @@
           ]
         }
       }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 2.0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "stopIntake"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
@@ -100,9 +83,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Amp side paths",
+  "folder": "Source side paths",
   "previewStartingState": {
-    "rotation": 60.0,
+    "rotation": -60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

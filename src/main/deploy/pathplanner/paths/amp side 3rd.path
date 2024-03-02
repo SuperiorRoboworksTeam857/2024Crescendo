@@ -3,50 +3,74 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
-        "y": 6.98
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 2.75,
-        "y": 6.98
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.5,
-        "y": 6.98
-      },
-      "prevControl": {
-        "x": 1.7500000000000002,
-        "y": 6.98
-      },
-      "nextControl": {
-        "x": 1.25,
-        "y": 6.98
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
         "x": 0.76,
         "y": 6.71
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 0.9765063509461097,
+        "y": 6.835
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.0,
+        "y": 7.4
+      },
       "prevControl": {
-        "x": 0.885,
-        "y": 6.92650635094611
+        "x": 2.0,
+        "y": 7.4
+      },
+      "nextControl": {
+        "x": 4.0,
+        "y": 7.4
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.3,
+        "y": 7.4
+      },
+      "prevControl": {
+        "x": 8.05,
+        "y": 7.4
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "start intake",
+      "waypointRelativePos": 1.65,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "runIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 0.5,
     "maxAcceleration": 3.0,
@@ -55,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Amp side paths",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 60.0,
     "velocity": 0
   },
   "useDefaultConstraints": false
