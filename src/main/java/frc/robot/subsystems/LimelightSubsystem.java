@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 // import frc.robot.Constants.LimelightConstants;
@@ -17,7 +18,17 @@ public class LimelightSubsystem extends SubsystemBase {
   public LimelightSubsystem() {}
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    SmartDashboard.putNumber("distance to tag", distanceToAprilTagMeters());
+  }
+
+  public double distanceToAprilTagMeters() {
+    var pose = getLimelightArray("camerapose_targetspace");
+    double tx = pose[0];
+    double tz = pose[2];
+
+    return Math.sqrt(tx*tx + tz*tz);
+  }
 
   public boolean isTurnedToTarget() {
     boolean ans = false;
@@ -72,6 +83,10 @@ public class LimelightSubsystem extends SubsystemBase {
 
   public void setLimelightValue(String entry, double value) {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry(entry).setDouble(value);
+  }
+
+  public double[] getLimelightArray(String entry) {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry(entry).getDoubleArray(new double[6]);
   }
 
   public void setLimelightArray(String entry, double[] value) {
