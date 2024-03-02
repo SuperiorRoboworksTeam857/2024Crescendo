@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
@@ -21,6 +22,8 @@ public class ClimberSubsystem extends SubsystemBase {
   CANSparkMax leftMotor = new CANSparkMax(ClimberConstants.leftArmID, MotorType.kBrushless);
   CANSparkMax rightMotor = new CANSparkMax(ClimberConstants.rightArmID, MotorType.kBrushless);
   
+  RelativeEncoder leftMotorEncoder = leftMotor.getEncoder();
+  RelativeEncoder rightMotorEncoder = rightMotor.getEncoder();
 
   public ClimberSubsystem() {}
 
@@ -42,8 +45,8 @@ public class ClimberSubsystem extends SubsystemBase {
     boolean movingUp = (speed > 0);
     boolean movingDown = (speed < 0);
 
-    if ((rightMotor.getEncoder().getPosition() > 0 && movingDown) ||
-       (rightMotor.getEncoder().getPosition() < 570 && movingUp)) {
+    if ((rightMotorEncoder.getPosition() > 0 && movingDown) ||
+       (rightMotorEncoder.getPosition() < 570 && movingUp)) {
       rightMotor.set(speed);
     }
     else if (movingDown) {
@@ -53,7 +56,7 @@ public class ClimberSubsystem extends SubsystemBase {
       rightMotor.set(0);
     }
     SmartDashboard.putNumber("right motor speed", speed);
-    SmartDashboard.putNumber("rightArmPosition", rightMotor.getEncoder().getPosition());
+    SmartDashboard.putNumber("rightArmPosition", rightMotorEncoder.getPosition());
   }
 
   public void runLeftArm(double speed)
@@ -65,8 +68,8 @@ public class ClimberSubsystem extends SubsystemBase {
     boolean movingUp = (speed < 0);
     boolean movingDown = (speed > 0);
 
-    if ((leftMotor.getEncoder().getPosition() < 0 && movingDown) ||
-        (leftMotor.getEncoder().getPosition() > -600 && movingUp)) {
+    if ((leftMotorEncoder.getPosition() < 0 && movingDown) ||
+        (leftMotorEncoder.getPosition() > -600 && movingUp)) {
       leftMotor.set(speed);
     }
     else if (movingDown) {
@@ -77,7 +80,7 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("left motor speed", speed);
-    SmartDashboard.putNumber("leftArmPosition", leftMotor.getEncoder().getPosition());
+    SmartDashboard.putNumber("leftArmPosition", leftMotorEncoder.getPosition());
   }
 
   
