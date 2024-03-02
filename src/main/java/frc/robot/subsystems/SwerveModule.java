@@ -114,6 +114,7 @@ public class SwerveModule {
     driveController.setFF(Constants.Swerve.angleKFF);
     driveMotor.enableVoltageCompensation(Constants.Swerve.voltageComp);
     driveMotor.burnFlash();
+    Timer.delay(1);
     driveEncoder.setPosition(0.0);
   }
 
