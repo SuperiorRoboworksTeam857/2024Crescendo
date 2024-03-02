@@ -20,13 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source side 1st"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Source side 2nd"
+            "pathName": "real Source side 1st"
           }
         },
         {

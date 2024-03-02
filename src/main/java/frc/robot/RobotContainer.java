@@ -82,10 +82,28 @@ public class RobotContainer {
       )
     );
     NamedCommands.registerCommand("runIntake",
-      new RunCommand(() -> intakeSubsystem.intake(pivotSubsystem), intakeSubsystem)
+      new ParallelRaceGroup(
+        new RunCommand(() -> intakeSubsystem.intake(pivotSubsystem), intakeSubsystem),
+        new RunCommand(() -> shooterSubsystem.runFeeder(0.2), shooterSubsystem)
+      )
     );
     NamedCommands.registerCommand("stopIntake",
-      new RunCommand(() -> intakeSubsystem.stopIntake(), intakeSubsystem)
+      new InstantCommand(() -> intakeSubsystem.stopIntake(), intakeSubsystem)
+    );
+    NamedCommands.registerCommand("brieflyReverseFeeder",
+      new SequentialCommandGroup(
+        new ParallelRaceGroup(
+          new RunCommand(() -> shooterSubsystem.runFeeder(-0.1), shooterSubsystem),
+          new WaitCommand(0.1)
+        ),
+        new InstantCommand(() -> shooterSubsystem.runFeeder(0), shooterSubsystem)
+      )
+    );
+    NamedCommands.registerCommand("raisePivotToShoot",
+      new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.SHOT_ANGLE), pivotSubsystem)
+    );
+    NamedCommands.registerCommand("lowerPivotToHorizontal",
+      new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem)
     );
 
     CameraServer.startAutomaticCapture();

@@ -20,13 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "amp side 1st"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "amp side 2nd"
+            "pathName": "real amp side 1st"
           }
         },
         {
