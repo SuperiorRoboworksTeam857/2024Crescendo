@@ -72,10 +72,10 @@ public class RobotContainer {
     /* Named commands */
     NamedCommands.registerCommand("shootNote",
       new SequentialCommandGroup(
-        new RunCommand(() -> shooterSubsystem.shoot(1, pivotSubsystem), shooterSubsystem)
+        new RunCommand(() -> shooterSubsystem.runShooter(1), shooterSubsystem)
           .until(shooterSubsystem::isShooterAtSpeed),
         new ParallelRaceGroup(
-            new RunCommand(() -> shooterSubsystem.shoot(1, pivotSubsystem), shooterSubsystem),
+            new RunCommand(() -> shooterSubsystem.runFeederAndShooter(), shooterSubsystem),
             new WaitCommand(1)
         ),
         new InstantCommand(() -> shooterSubsystem.stopAllMotors(), shooterSubsystem)
@@ -139,10 +139,13 @@ public class RobotContainer {
 
     // Pivot controls
     pivotUpButton.whileTrue(
-        new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.VERTICAL), pivotSubsystem));
+       new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.VERTICAL), pivotSubsystem));
 
     pivotDownButton.whileTrue(
-    new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem));
+      new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem));
+
+    new JoystickButton(gamepad, XboxController.Button.kBack.value).whileTrue(
+      new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.SHOT_ANGLE), pivotSubsystem));
 
     // Shooter controls
     shooterButton.whileTrue(
@@ -167,6 +170,10 @@ public class RobotContainer {
       return new PathPlannerAuto("2 note center");
     } else if (buttonBox.getRawButton(4)) {
       return new PathPlannerAuto("2 note amp side");
+    } else if (buttonBox.getRawButton(5)) {
+      return new PathPlannerAuto("2 note source side");
+    } else if (buttonBox.getRawButton(6)) {
+      return new PathPlannerAuto("4 note center");
     }
 
     return Commands.print("No autonomous command configured");
