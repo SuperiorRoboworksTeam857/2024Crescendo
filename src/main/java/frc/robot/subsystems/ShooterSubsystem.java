@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,7 +24,13 @@ public class ShooterSubsystem extends SubsystemBase {
   
   RelativeEncoder shooterEncoder = motorLeft.getEncoder();
 
-  public ShooterSubsystem() {}
+  public ShooterSubsystem() {
+    motorFeeder.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 65000);
+    motorFeeder.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65000);
+    motorFeeder.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65000);
+    motorFeeder.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65000);   
+    motorFeeder.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65000);
+  }
 
   @Override
   public void periodic() {}
@@ -73,8 +80,6 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean isShooterAtSpeed() {
-    
-
     return shooterEncoder.getVelocity() > 5900;
   }
 
