@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,6 +21,7 @@ public class ShooterSubsystem extends SubsystemBase {
   CANSparkFlex motorRight = new CANSparkFlex(ShooterConstants.shooterMotorRightID, MotorType.kBrushless);
   CANSparkFlex motorFeeder = new CANSparkFlex(ShooterConstants.shooterMotorFeederID, MotorType.kBrushless);
   
+  RelativeEncoder shooterEncoder = motorLeft.getEncoder();
 
   public ShooterSubsystem() {}
 
@@ -34,8 +36,18 @@ public class ShooterSubsystem extends SubsystemBase {
     } 
   }
 
+  public void runFeederAndShooter() {
+    runShooter(1);
+    runFeeder(1);
+  }
+
   public void shoot(double speed, PivotSubsystem pivotSubsystem) {
-    runShooter(speed);
+    if (pivotSubsystem.isPivotVertical()) {
+      runShooter(0.2);
+    } else {
+      runShooter(speed);
+    }
+    
     if (isShooterAtSpeed() || pivotSubsystem.isPivotVertical()) {
       runFeeder(1);
     } 
@@ -57,11 +69,13 @@ public class ShooterSubsystem extends SubsystemBase {
     motorLeft.set(speed);
     motorRight.set(-speed);
 
-    SmartDashboard.putNumber("shooter speed", motorLeft.getEncoder().getVelocity());
+    SmartDashboard.putNumber("shooter speed", shooterEncoder.getVelocity());
   }
 
   public boolean isShooterAtSpeed() {
-    return motorLeft.getEncoder().getVelocity() > 4800;
+    
+
+    return shooterEncoder.getVelocity() > 5900;
   }
 
 }
