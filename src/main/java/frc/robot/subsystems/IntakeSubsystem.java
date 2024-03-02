@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,7 +21,22 @@ public class IntakeSubsystem extends SubsystemBase {
   CANSparkFlex motorFront = new CANSparkFlex(IntakeConstants.intakeMotorFrontID, MotorType.kBrushless);
   
 
-  public IntakeSubsystem() {}
+  public IntakeSubsystem() {
+    motorBack.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 65000);
+    motorFront.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 65000);
+
+    motorBack.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65000);
+    motorFront.setPeriodicFramePeriod(PeriodicFrame.kStatus3, 65000);
+
+    motorBack.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65000);
+    motorFront.setPeriodicFramePeriod(PeriodicFrame.kStatus4, 65000);
+    
+    motorBack.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65000);
+    motorFront.setPeriodicFramePeriod(PeriodicFrame.kStatus5, 65000);
+    
+    motorBack.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65000);
+    motorFront.setPeriodicFramePeriod(PeriodicFrame.kStatus6, 65000);
+  }
 
   @Override
   public void periodic() {}
