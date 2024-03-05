@@ -83,11 +83,19 @@ public class Swerve extends SubsystemBase {
       return;
     }
 
+    double rotationDegrees = 0;
+    var alliance = DriverStation.getAlliance();
+    if (alliance.isPresent() && (alliance.get() == DriverStation.Alliance.Red)) {
+      rotationDegrees = 180;
+    }
+
+    Rotation2d robotOrientation = swerveOdometry.getPoseMeters().getRotation().plus(Rotation2d.fromDegrees(rotationDegrees));
+
     SwerveModuleState[] swerveModuleStates =
         Constants.Swerve.swerveKinematics.toSwerveModuleStates(
             fieldRelative
                 ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                    translation.getX(), translation.getY(), rotation, swerveOdometry.getPoseMeters().getRotation())
+                    translation.getX(), translation.getY(), rotation, robotOrientation)
                 : new ChassisSpeeds(translation.getX(), translation.getY(), rotation));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Swerve.maxSpeed);
 
@@ -172,10 +180,14 @@ public class Swerve extends SubsystemBase {
 
   public void zeroGyro() {
     gyro.reset();
-
+    double rotationDegrees = 0;
+    var alliance = DriverStation.getAlliance();
+    if (alliance.isPresent() && (alliance.get() == DriverStation.Alliance.Red)) {
+      rotationDegrees = 180;
+    }
 
     Pose2d oldPose = getPose();
-    Pose2d pose = new Pose2d(oldPose.getX(), oldPose.getY(), new Rotation2d(0));
+    Pose2d pose = new Pose2d(oldPose.getX(), oldPose.getY(), Rotation2d.fromDegrees(rotationDegrees));
     resetPose(pose);
     
   }
