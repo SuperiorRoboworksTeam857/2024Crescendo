@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4,
+        "x": 1.9,
         "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.65,
+        "x": 2.15,
         "y": 5.55
       },
       "isLocked": false,
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 1.4,
+        "x": 1.9,
         "y": 5.55
       },
       "prevControl": {
-        "x": 1.65,
-        "y": 5.55
+        "x": 1.9855050358314172,
+        "y": 5.315076844803523
       },
       "nextControl": null,
       "isLocked": false,
@@ -87,6 +87,29 @@
               "type": "named",
               "data": {
                 "name": "brieflyReverseFeeder"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "raisePivotToShoot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "lower pivot",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "lowerPivotToHorizontal"
               }
             }
           ]

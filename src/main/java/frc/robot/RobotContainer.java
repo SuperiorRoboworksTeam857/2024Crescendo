@@ -191,7 +191,9 @@ public class RobotContainer {
     } else if (buttonBox.getRawButton(5)) {
       return new PathPlannerAuto("2 note source side");
     } else if (buttonBox.getRawButton(6)) {
-      return new PathPlannerAuto("4 note center");
+      return new PathPlannerAuto("3 note center amp side");
+    } else if (buttonBox.getRawButton(7)) {
+      return new PathPlannerAuto("3 note center source side");
     }
 
     return Commands.print("No autonomous command configured");

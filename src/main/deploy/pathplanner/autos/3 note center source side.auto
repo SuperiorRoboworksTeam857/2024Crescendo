@@ -32,31 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "center 2nd at distance"
+            "pathName": "center 3rd"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "shootNote"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "center 3rd at distance"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootNote"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "lowerPivotToHorizontal"
           }
         }
       ]
