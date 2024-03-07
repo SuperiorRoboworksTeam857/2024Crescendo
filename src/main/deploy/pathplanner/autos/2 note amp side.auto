@@ -14,7 +14,19 @@
         {
           "type": "named",
           "data": {
+            "name": "raisePivotToShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "shootNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
           }
         },
         {
@@ -26,7 +38,19 @@
         {
           "type": "named",
           "data": {
+            "name": "raisePivotToShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "shootNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
           }
         },
         {

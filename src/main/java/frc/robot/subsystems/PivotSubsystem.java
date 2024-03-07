@@ -18,11 +18,13 @@ public class PivotSubsystem extends SubsystemBase {
   private final AbsoluteEncoder m_absoluteEncoder;
 
   private static final double horizontalAngle = 0.666;
+  private static final double angledSubwooferAngle = 0.65;
   private static final double shallowerAngle = 0.62;   // 0.62 around white lines, 0.64 around middle of black tape
   private static final double verticalAngle = 0.416;
 
   public enum Positions {
     HORIZONTAL,
+    SUBWOOFER_ANGLE,
     SHOT_ANGLE,
     VERTICAL
   }
@@ -66,6 +68,9 @@ public class PivotSubsystem extends SubsystemBase {
     switch (position) {
       case HORIZONTAL:
         m_goalAngle = horizontalAngle;
+        break;
+      case SUBWOOFER_ANGLE:
+        m_goalAngle = angledSubwooferAngle;
         break;
       case SHOT_ANGLE:
         m_goalAngle = shallowerAngle;

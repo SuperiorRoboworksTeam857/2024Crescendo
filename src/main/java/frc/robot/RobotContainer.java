@@ -100,7 +100,7 @@ public class RobotContainer {
       )
     );
     NamedCommands.registerCommand("raisePivotToShoot",
-      new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.SHOT_ANGLE), pivotSubsystem)
+      new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.SUBWOOFER_ANGLE), pivotSubsystem)
     );
     NamedCommands.registerCommand("lowerPivotToHorizontal",
       new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem)
