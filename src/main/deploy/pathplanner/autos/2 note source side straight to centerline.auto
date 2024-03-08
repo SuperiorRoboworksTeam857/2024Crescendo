@@ -52,6 +52,12 @@
           "data": {
             "name": "lowerPivotToHorizontal"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source side 3rd"
+          }
         }
       ]
     }
