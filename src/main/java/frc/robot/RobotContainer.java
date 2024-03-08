@@ -186,32 +186,28 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     if (buttonBox.getRawButton(3)) {
       return new PathPlannerAuto("2 note center");
-    } else if (buttonBox.getRawButton(4)) {
-      return new PathPlannerAuto("2 note amp side");
-    } else if (buttonBox.getRawButton(5)) {
-      return new PathPlannerAuto("2 note source side");
-    } else if (buttonBox.getRawButton(6)) {
-      return new PathPlannerAuto("3 note center amp side");
-    } else if (buttonBox.getRawButton(7)) {
-      return new PathPlannerAuto("3 note center source side");
+    } else {
+      if (buttonBox.getRawButton(4)) {
+        // amp side
+        if (buttonBox.getRawButton(5)) {
+          return new PathPlannerAuto("2 note amp side");
+        } else if (buttonBox.getRawButton(6)) {
+          return new PathPlannerAuto("3 note center amp side");
+        } else if (buttonBox.getRawButton(7)) {
+          return new PathPlannerAuto("2 note amp side straight to centerline");
+        }
+      } else {
+        // source side
+        if (buttonBox.getRawButton(5)) {
+          return new PathPlannerAuto("2 note source side");
+        } else if (buttonBox.getRawButton(6)) {
+          return new PathPlannerAuto("3 note center source side");
+        } else if (buttonBox.getRawButton(7)) {
+          return new PathPlannerAuto("2 note source side straight to centerline");
+        }
+      }
     }
 
     return Commands.print("No autonomous command configured");
-
-    // if (buttonBox.getRawButton(3)) {
-    //   return new AutoPreloadConeChargeStation(this);
-    // } else if (buttonBox.getRawButton(4)) {
-    //   return new AutoPreloadConeChargeStationPlusCone(this);
-    // } else if (buttonBox.getRawButton(5)) {
-    //   return new AutoPreloadCubeChargeStation(this);
-    // } else if (buttonBox.getRawButton(6)) {
-    //   return new AutoBlueLeftTwoHigh(this);
-    // } else if (buttonBox.getRawButton(7)) {
-    //   return new AutoRedRightTwoHigh(this);
-    // } else {
-    //   return new AutoPreloadConeChargeStationPlusCube(this);
-    // }
-
-    //return Commands.print("No autonomous command configured");
   }
 }
