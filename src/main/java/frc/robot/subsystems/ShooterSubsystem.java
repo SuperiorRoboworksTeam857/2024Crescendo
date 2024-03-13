@@ -12,6 +12,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkLowLevel.PeriodicFrame;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
@@ -21,6 +23,9 @@ public class ShooterSubsystem extends SubsystemBase {
   CANSparkFlex motorLeft = new CANSparkFlex(ShooterConstants.shooterMotorLeftID, MotorType.kBrushless);
   CANSparkFlex motorRight = new CANSparkFlex(ShooterConstants.shooterMotorRightID, MotorType.kBrushless);
   CANSparkFlex motorFeeder = new CANSparkFlex(ShooterConstants.shooterMotorFeederID, MotorType.kBrushless);
+
+  DigitalInput beamBreak = new DigitalInput(9);
+  Spark ledStrip = new Spark(0);
   
   RelativeEncoder shooterEncoder = motorLeft.getEncoder();
 
@@ -33,7 +38,14 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    boolean noteInFeeder = !beamBreak.get();
+    if (noteInFeeder) {
+      ledStrip.set(-0.11);
+    } else {
+      ledStrip.set(0.83);
+    }
+  }
 
   public void chargeShooter(double speed, PivotSubsystem pivotSubsystem)
   {
