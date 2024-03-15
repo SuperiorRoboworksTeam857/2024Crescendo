@@ -208,6 +208,9 @@ public class RobotContainer {
       }
     }
 
-    return Commands.print("No autonomous command configured");
+
+    return new PathPlannerAuto("just shoot");
+
+    //return Commands.print("No autonomous command configured");
   }
 }
