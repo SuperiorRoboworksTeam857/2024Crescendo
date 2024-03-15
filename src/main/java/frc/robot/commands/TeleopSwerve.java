@@ -49,6 +49,8 @@ public class TeleopSwerve extends Command {
     if (highSpeedSup.getAsBoolean()) speedMultiplier = Constants.Swerve.fastDriveSpeedMultiplier;
     if (slowSpeedSup.getAsBoolean()) speedMultiplier = Constants.Swerve.slowDriveSpeedMultiplier;
 
+    double rotationSpeedMultiplier = Math.min(speedMultiplier, Constants.Swerve.normalDriveSpeedMultiplier);
+
     /* Get Values, Deadband*/
     double translationVal =
         translationLimiter.calculate(
@@ -61,7 +63,7 @@ public class TeleopSwerve extends Command {
                 * MathUtil.applyDeadband(strafeSup.getAsDouble(), Constants.Swerve.stickDeadband));
     double rotationVal =
         rotationLimiter.calculate(
-            speedMultiplier
+            rotationSpeedMultiplier
                 * MathUtil.applyDeadband(
                     rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
 
