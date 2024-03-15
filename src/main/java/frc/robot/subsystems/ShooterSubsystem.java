@@ -23,9 +23,6 @@ public class ShooterSubsystem extends SubsystemBase {
   CANSparkFlex motorLeft = new CANSparkFlex(ShooterConstants.shooterMotorLeftID, MotorType.kBrushless);
   CANSparkFlex motorRight = new CANSparkFlex(ShooterConstants.shooterMotorRightID, MotorType.kBrushless);
   CANSparkFlex motorFeeder = new CANSparkFlex(ShooterConstants.shooterMotorFeederID, MotorType.kBrushless);
-
-  DigitalInput beamBreak = new DigitalInput(9);
-  Spark ledStrip = new Spark(0);
   
   RelativeEncoder shooterEncoder = motorLeft.getEncoder();
 
@@ -38,14 +35,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    boolean noteInFeeder = !beamBreak.get();
-    if (noteInFeeder) {
-      ledStrip.set(-0.11);
-    } else {
-      ledStrip.set(0.83);
-    }
-  }
+  public void periodic() {}
 
   public void chargeShooter(double speed, PivotSubsystem pivotSubsystem)
   {

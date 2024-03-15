@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 //import frc.robot.Constants.Swerve;
 //import frc.robot.autos.*;
 import frc.robot.commands.TeleopSwerve;
@@ -26,6 +27,7 @@ import frc.robot.commands.TurnToAngleCommand;
 import frc.robot.commands.TurnToTargetCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -67,6 +69,7 @@ public class RobotContainer {
   public final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public final PivotSubsystem pivotSubsystem = new PivotSubsystem();
   public final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  public final LEDSubsystem ledSubsystem = new LEDSubsystem();
   
   public RobotContainer() {
     /* Named commands */
@@ -135,6 +138,8 @@ public class RobotContainer {
       new RunCommand(
         () -> shooterSubsystem.stopAllMotors(),
             shooterSubsystem));
+
+    ledSubsystem.setDefaultCommand(new RunCommand(() -> ledSubsystem.dontRequestNote(),ledSubsystem));
     
             
     configureBindings();
@@ -153,6 +158,7 @@ public class RobotContainer {
 
     // Intake controls
     intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.intake(pivotSubsystem), intakeSubsystem));
+    intakeButton.whileTrue(new RunCommand(() -> ledSubsystem.requestNote(), ledSubsystem));
     outTakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.outtake(), intakeSubsystem));
 
     // Pivot controls
@@ -180,6 +186,10 @@ public class RobotContainer {
         .whileTrue(
             new InstantCommand(
                 () -> s_limelight.setPipeline(LimelightSubsystem.Pipeline.AprilTags)));
+
+
+    new Trigger(() -> gamepad.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.5)
+      .whileTrue(new RunCommand(() -> ledSubsystem.requestNote(), ledSubsystem));
 
   }
 
