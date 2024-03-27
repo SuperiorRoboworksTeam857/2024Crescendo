@@ -87,7 +87,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("runIntake",
       new ParallelRaceGroup(
         new RunCommand(() -> intakeSubsystem.intake(pivotSubsystem), intakeSubsystem),
-        new RunCommand(() -> shooterSubsystem.runFeeder(0.2), shooterSubsystem)
+        new RunCommand(() -> shooterSubsystem.runFeeder(0.4), shooterSubsystem)
       )
     );
     NamedCommands.registerCommand("stopIntake",
@@ -169,7 +169,7 @@ public class RobotContainer {
       new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem));
 
     new JoystickButton(gamepad, XboxController.Button.kBack.value).whileTrue(
-      new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.SHOT_ANGLE), pivotSubsystem));
+      new RunCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.SUBWOOFER_ANGLE), pivotSubsystem));
 
     // Shooter controls
     shooterButton.whileTrue(
