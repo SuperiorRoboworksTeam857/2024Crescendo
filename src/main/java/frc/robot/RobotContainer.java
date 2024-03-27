@@ -73,6 +73,10 @@ public class RobotContainer {
   
   public RobotContainer() {
     /* Named commands */
+    NamedCommands.registerCommand("runShooter",
+      new InstantCommand(() -> shooterSubsystem.runShooter(1))
+    );
+    
     NamedCommands.registerCommand("shootNote",
       new SequentialCommandGroup(
         new RunCommand(() -> shooterSubsystem.runShooter(1), shooterSubsystem)
@@ -219,7 +223,7 @@ public class RobotContainer {
     }
 
 
-    return new PathPlannerAuto("just shoot");
+    return new PathPlannerAuto("4 note center"); // not quite fast enough
 
     //return Commands.print("No autonomous command configured");
   }

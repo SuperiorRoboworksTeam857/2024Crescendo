@@ -88,6 +88,12 @@
               "data": {
                 "name": "brieflyReverseFeeder"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "runShooter"
+              }
             }
           ]
         }
@@ -95,13 +101,13 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.75,
+    "maxVelocity": 2.5,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 0.0,
     "rotateFast": false
   },
