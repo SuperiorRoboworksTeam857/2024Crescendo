@@ -76,7 +76,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public void runShooter(double speed)
   {
     motorLeft.set(speed);
-    motorRight.set(-speed);
+    motorRight.set(-speed*0.9);
 
     SmartDashboard.putNumber("shooter speed", shooterEncoder.getVelocity());
   }
