@@ -56,7 +56,7 @@ public class PivotSubsystem extends SubsystemBase {
   public void periodic() {
     m_controller.setGoal(m_goalAngle);
     leftMotor.set(m_controller.calculate(m_absoluteEncoder.getPosition()));
-    rightMotor.set(m_controller.calculate(m_absoluteEncoder.getPosition()));
+    rightMotor.set(-m_controller.calculate(m_absoluteEncoder.getPosition()));
 
 
     SmartDashboard.putNumber("pivot position", m_absoluteEncoder.getPosition());
