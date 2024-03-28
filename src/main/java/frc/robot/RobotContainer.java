@@ -20,8 +20,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-//import frc.robot.Constants.Swerve;
-//import frc.robot.autos.*;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.TurnToAngleCommand;
 import frc.robot.commands.TurnToTargetCommand;
@@ -125,7 +123,7 @@ public class RobotContainer {
             () -> -driverStick.getRawAxis(strafeAxis),
             () -> -driverStick.getRawAxis(rotationAxis),
             () -> false,
-            () -> slowSpeed.getAsBoolean() /*|| s_elevator.isElevatorHigh()*/,
+            () -> slowSpeed.getAsBoolean(),
             () -> highSpeed.getAsBoolean()));
 
     climberSubsystem.setDefaultCommand(
