@@ -14,13 +14,19 @@
         {
           "type": "named",
           "data": {
-            "name": "shootNote"
+            "name": "runShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "raisePivotToShootAtDistance"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "2 note center path"
+            "pathName": "atdist - 1st"
           }
         },
         {
@@ -30,15 +36,45 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "center 2nd new"
+            "pathName": "atdist - 2nd"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "shootNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "atdist - 3rd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
           }
         }
       ]
