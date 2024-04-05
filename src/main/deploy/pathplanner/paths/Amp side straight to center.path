@@ -17,15 +17,15 @@
     {
       "anchor": {
         "x": 2.9,
-        "y": 7.65
+        "y": 7.7
       },
       "prevControl": {
-        "x": 1.9,
-        "y": 7.65
+        "x": 1.4,
+        "y": 7.7
       },
       "nextControl": {
-        "x": 3.8999999999999995,
-        "y": 7.65
+        "x": 3.9,
+        "y": 7.7
       },
       "isLocked": false,
       "linkedName": null
@@ -78,7 +78,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
+      "waypointRelativePos": 0.85,
       "rotationDegrees": 0,
       "rotateFast": false
     },
@@ -132,7 +132,7 @@
     },
     {
       "name": "stop intake",
-      "waypointRelativePos": 2.65,
+      "waypointRelativePos": 2.5,
       "command": {
         "type": "sequential",
         "data": {
@@ -162,7 +162,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.0,
+    "rotation": 55.0,
     "rotateFast": false
   },
   "reversed": false,

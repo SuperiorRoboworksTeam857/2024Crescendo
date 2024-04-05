@@ -1,0 +1,103 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.4,
+      "y": 5.55
+    },
+    "rotation": 0.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "runShooter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "raisePivotToShootAtDistance"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "atdist - 1st"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "atdist - 2nd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "atdist - 3rd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "center 3rd at distance"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "lowerPivotToHorizontal"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

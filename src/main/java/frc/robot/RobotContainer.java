@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -81,7 +82,11 @@ public class RobotContainer {
           .until(shooterSubsystem::isShooterAtSpeed),
         new ParallelRaceGroup(
             new RunCommand(() -> shooterSubsystem.runFeederAndShooter(), shooterSubsystem),
-            new WaitCommand(1)
+            new WaitCommand(1),
+            new SequentialCommandGroup(
+              new WaitUntilCommand(ledSubsystem::noteNotInFeeder),
+              new WaitCommand(0.3)
+            )
         ),
         new InstantCommand(() -> shooterSubsystem.stopAllMotors(), shooterSubsystem)
       )
@@ -99,13 +104,16 @@ public class RobotContainer {
       new SequentialCommandGroup(
         new ParallelRaceGroup(
           new RunCommand(() -> shooterSubsystem.runFeeder(-0.1), shooterSubsystem),
-          new WaitCommand(0.1)
+          new WaitCommand(0.15)
         ),
         new InstantCommand(() -> shooterSubsystem.runFeeder(0), shooterSubsystem)
       )
     );
     NamedCommands.registerCommand("raisePivotToShoot",
-      new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.SUBWOOFER_ANGLE), pivotSubsystem)
+      new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem)
+    );
+    NamedCommands.registerCommand("raisePivotToShootAtDistance",
+      new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.SHOT_ANGLE), pivotSubsystem)
     );
     NamedCommands.registerCommand("lowerPivotToHorizontal",
       new InstantCommand(() -> pivotSubsystem.goToAngle(PivotSubsystem.Positions.HORIZONTAL), pivotSubsystem)
@@ -196,7 +204,13 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    if (buttonBox.getRawButton(3)) {
+    if (buttonBox.getRawButton(3) && buttonBox.getRawButton(4) && buttonBox.getRawButton(5) &&
+        buttonBox.getRawButton(6) && buttonBox.getRawButton(7)) {
+      return new PathPlannerAuto("4 note center at distance amp first");
+    } else if (buttonBox.getRawButton(3) && buttonBox.getRawButton(4) && buttonBox.getRawButton(5) &&
+               buttonBox.getRawButton(6)) {
+      return new PathPlannerAuto("4 note center at distance source first");
+    } else if (buttonBox.getRawButton(3)) {
       return new PathPlannerAuto("2 note center");
     } else {
       if (buttonBox.getRawButton(4)) {
@@ -220,8 +234,7 @@ public class RobotContainer {
       }
     }
 
-
-    return new PathPlannerAuto("4 note center"); // not quite fast enough
+    return new PathPlannerAuto("just shoot");
 
     //return Commands.print("No autonomous command configured");
   }

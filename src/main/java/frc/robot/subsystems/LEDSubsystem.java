@@ -28,8 +28,7 @@ public class LEDSubsystem extends SubsystemBase {
   public void periodic() {
     double lightPattern = BLUE_LIGHTS;
 
-    boolean noteInFeeder = !beamBreak.get();
-    if (noteInFeeder) {
+    if ((noteInFeeder())) {
       lightPattern = GREEN_LIGHTS;
     } else if (requestingNote) {
       lightPattern = STROBE_RED;
@@ -46,5 +45,14 @@ public class LEDSubsystem extends SubsystemBase {
 
   public void dontRequestNote(){
     requestingNote = false;
+  }
+
+  public boolean noteInFeeder() {
+    boolean noteIsInFeeder = !beamBreak.get();
+    return noteIsInFeeder;
+  }
+
+  public boolean noteNotInFeeder() {
+    return !noteInFeeder();
   }
 }

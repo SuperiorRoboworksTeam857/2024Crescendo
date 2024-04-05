@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.85,
-      "y": 4.5
+      "x": 1.4,
+      "y": 5.55
     },
-    "rotation": -60.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,25 @@
         {
           "type": "named",
           "data": {
-            "name": "raisePivotToShoot"
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 note center path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shootNote"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "center 2nd at distance"
           }
         },
         {
@@ -32,13 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source side straight to center"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "raisePivotToShoot"
+            "pathName": "center 3rd at distance"
           }
         },
         {
