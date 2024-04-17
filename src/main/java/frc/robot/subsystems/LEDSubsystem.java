@@ -19,8 +19,10 @@ public class LEDSubsystem extends SubsystemBase {
   public static final double BLUE_LIGHTS = 0.83;
   public static final double STROBE_RED = -0.11;
   public static final double GREEN_LIGHTS = 0.77; 
+  public static final double RAINBOW = -0.97;
 
   boolean requestingNote = false;
+  boolean partyMode = false;
   
   public LEDSubsystem() {}
 
@@ -32,6 +34,8 @@ public class LEDSubsystem extends SubsystemBase {
       lightPattern = GREEN_LIGHTS;
     } else if (requestingNote) {
       lightPattern = STROBE_RED;
+    } else if (partyMode) {
+      lightPattern = RAINBOW;
     } else {
       lightPattern = BLUE_LIGHTS;
     }
@@ -54,5 +58,9 @@ public class LEDSubsystem extends SubsystemBase {
 
   public boolean noteNotInFeeder() {
     return !noteInFeeder();
+  }
+
+  public void party(){
+    partyMode = true;
   }
 }

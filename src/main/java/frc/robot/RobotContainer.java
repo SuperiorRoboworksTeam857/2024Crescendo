@@ -50,6 +50,9 @@ public class RobotContainer {
   private final JoystickButton slowSpeed = new JoystickButton(driverStick, 2);
   private final JoystickButton highSpeed = new JoystickButton(driverStick,1);
 
+  private final JoystickButton partyButton = new JoystickButton(driverStick, 11);
+
+
   /* gamepad Buttons */
   private final JoystickButton intakeButton = new JoystickButton(gamepad, XboxController.Button.kY.value);
   private final JoystickButton outTakeButton = new JoystickButton(gamepad,XboxController.Button.kX.value);
@@ -170,6 +173,8 @@ public class RobotContainer {
     intakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.intake(pivotSubsystem), intakeSubsystem));
     intakeButton.whileTrue(new RunCommand(() -> ledSubsystem.requestNote(), ledSubsystem));
     outTakeButton.whileTrue(new RunCommand(() -> intakeSubsystem.outtake(), intakeSubsystem));
+
+    partyButton.whileTrue(new InstantCommand(() -> ledSubsystem.party(), ledSubsystem));
 
     // Pivot controls
     pivotUpButton.whileTrue(
