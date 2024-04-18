@@ -88,7 +88,7 @@ public class RobotContainer {
             new WaitCommand(1),
             new SequentialCommandGroup(
               new WaitUntilCommand(ledSubsystem::noteNotInFeeder),
-              new WaitCommand(0.3)
+              new WaitCommand(0.4)
             )
         ),
         new InstantCommand(() -> shooterSubsystem.stopAllMotors(), shooterSubsystem)
