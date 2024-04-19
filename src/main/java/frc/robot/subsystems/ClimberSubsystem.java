@@ -69,7 +69,7 @@ public class ClimberSubsystem extends SubsystemBase {
     boolean movingDown = (speed > 0);
 
     if ((leftMotorEncoder.getPosition() < 0 && movingDown) ||
-        (leftMotorEncoder.getPosition() > -475 && movingUp)) {
+        (leftMotorEncoder.getPosition() > -530 && movingUp)) {
       leftMotor.set(speed);
     }
     else if (movingDown) {
